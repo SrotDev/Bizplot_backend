@@ -1,0 +1,653 @@
+openapi: 3.0.3
+info:
+  title: Your Project API
+  version: 1.0.0
+  description: Your project description
+paths:
+  /api/accounts/login/:
+    post:
+      operationId: api_accounts_login_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Login'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Login'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Login'
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Login'
+          description: ''
+  /api/accounts/profile/:
+    get:
+      operationId: api_accounts_profile_retrieve
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserProfile'
+          description: ''
+  /api/accounts/register/:
+    post:
+      operationId: api_accounts_register_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Register'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Register'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Register'
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Register'
+          description: ''
+  /api/ideas/idea/:
+    get:
+      operationId: api_ideas_idea_list
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Idea'
+          description: ''
+    post:
+      operationId: api_ideas_idea_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Idea'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Idea'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Idea'
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Idea'
+          description: ''
+  /api/ideas/idea/{id}/:
+    get:
+      operationId: api_ideas_idea_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Idea'
+          description: ''
+    put:
+      operationId: api_ideas_idea_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Idea'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Idea'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Idea'
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Idea'
+          description: ''
+    delete:
+      operationId: api_ideas_idea_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/ideas/ideacard/:
+    get:
+      operationId: api_ideas_ideacard_list
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/IdeaCard'
+          description: ''
+  /api/ideas/ideacard/{id}/:
+    get:
+      operationId: api_ideas_ideacard_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IdeaCard'
+          description: ''
+    put:
+      operationId: api_ideas_ideacard_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IdeaCard'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/IdeaCard'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/IdeaCard'
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IdeaCard'
+          description: ''
+    delete:
+      operationId: api_ideas_ideacard_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/ideas/ideacard/generate/{id}/:
+    get:
+      operationId: api_ideas_ideacard_generate_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          description: No response body
+components:
+  schemas:
+    BusinessStageEnum:
+      enum:
+      - idea
+      - early
+      - scaling
+      - established
+      type: string
+      description: |-
+        * `idea` - Idea
+        * `early` - Early Startup
+        * `scaling` - Scaling
+        * `established` - Established
+    GenerationStatusEnum:
+      enum:
+      - not_started_yet
+      - pending
+      - in_progress
+      - completed
+      - failed
+      type: string
+      description: |-
+        * `not_started_yet` - Not Started Yet
+        * `pending` - Pending
+        * `in_progress` - In Progress
+        * `completed` - Completed
+        * `failed` - Failed
+    Idea:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        title:
+          type: string
+          maxLength: 200
+        short_description:
+          type: string
+        budget_range:
+          $ref: '#/components/schemas/IdeaBudgetRangeEnum'
+        product_category:
+          $ref: '#/components/schemas/ProductCategoryEnum'
+        target_market:
+          $ref: '#/components/schemas/TargetMarketEnum'
+        business_plan:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        user:
+          type: string
+          format: uuid
+          readOnly: true
+      required:
+      - created_at
+      - id
+      - updated_at
+      - user
+    IdeaBudgetRangeEnum:
+      enum:
+      - <1k
+      - 1k-10k
+      - 10k-50k
+      - 50k-100k
+      - 100k-500k
+      - 500k-1M
+      - '>1M'
+      type: string
+      description: |-
+        * `<1k` - < $1k
+        * `1k-10k` - $1k–10k
+        * `10k-50k` - $10k–50k
+        * `50k-100k` - $50k–100k
+        * `100k-500k` - $100k–500k
+        * `500k-1M` - $500k–$1M
+        * `>1M` - > $1M
+    IdeaCard:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        generation_status:
+          $ref: '#/components/schemas/GenerationStatusEnum'
+        startup_idea:
+          type: string
+          maxLength: 200
+        summary:
+          type: string
+          nullable: true
+        tagline:
+          type: string
+          nullable: true
+        model_type:
+          $ref: '#/components/schemas/ModelTypeEnum'
+        problem_statement:
+          type: string
+          nullable: true
+        solution:
+          type: string
+          nullable: true
+        quick_stats: {}
+        model_archetype:
+          type: string
+          nullable: true
+          maxLength: 100
+        market_analysis: {}
+        competitor_analysis: {}
+        product_service: {}
+        business_model: {}
+        go_to_market: {}
+        traction: {}
+        financial_projection: {}
+        roadmap: {}
+        team: {}
+        risks_opportunities: {}
+        ask_funding: {}
+        chart: {}
+        data_for_montecarlo_simulation: {}
+        montecarlo_chart: {}
+        premium_locked:
+          type: boolean
+        regeneration_allowed:
+          type: boolean
+        tags: {}
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        idea:
+          type: string
+          format: uuid
+      required:
+      - created_at
+      - id
+      - startup_idea
+      - updated_at
+    Login:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+          writeOnly: true
+      required:
+      - email
+      - password
+    ModelTypeEnum:
+      enum:
+      - retail
+      - ecommerce
+      - saas
+      - service
+      - other
+      type: string
+      description: |-
+        * `retail` - Retail
+        * `ecommerce` - E-commerce
+        * `saas` - SaaS
+        * `service` - Service
+        * `other` - Other
+    ProductCategoryEnum:
+      enum:
+      - saas
+      - mobile_app
+      - ai_ml
+      - web_platform
+      - ecommerce
+      - fintech
+      - healthtech
+      - edtech
+      - greentech
+      - agritech
+      - hardware_iot
+      - ar_vr
+      - media_gaming
+      - travel_hospitality
+      - social_impact
+      - other
+      type: string
+      description: |-
+        * `saas` - Software / SaaS
+        * `mobile_app` - Mobile App
+        * `ai_ml` - AI / Machine Learning
+        * `web_platform` - Web Platform / Marketplace
+        * `ecommerce` - E-commerce / Retail
+        * `fintech` - FinTech / Payments
+        * `healthtech` - HealthTech / MedTech
+        * `edtech` - EdTech / Learning
+        * `greentech` - GreenTech / Sustainability
+        * `agritech` - AgriTech / FoodTech
+        * `hardware_iot` - Hardware / IoT / Robotics
+        * `ar_vr` - AR / VR / Metaverse
+        * `media_gaming` - Media / Entertainment / Gaming
+        * `travel_hospitality` - Travel / Hospitality
+        * `social_impact` - Social Impact / Nonprofit
+        * `other` - Other
+    Register:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        username:
+          type: string
+          description: Required. 150 characters or fewer. Letters, digits and @/./+/-/_
+            only.
+          pattern: ^[\w.@+-]+$
+          maxLength: 150
+        email:
+          type: string
+          format: email
+          maxLength: 254
+        password:
+          type: string
+          writeOnly: true
+      required:
+      - email
+      - id
+      - password
+      - username
+    SubscriptionPlanEnum:
+      enum:
+      - free
+      - pro
+      - enterprise
+      type: string
+      description: |-
+        * `free` - Free
+        * `pro` - Pro
+        * `enterprise` - Enterprise
+    TargetMarketEnum:
+      enum:
+      - b2c
+      - b2b_small
+      - b2b_enterprise
+      - b2g
+      - students
+      - healthcare
+      - freelancers
+      - developers
+      - rural
+      - luxury
+      type: string
+      description: |-
+        * `b2c` - B2C – Mass Consumers
+        * `b2b_small` - B2B – Small Businesses / Startups
+        * `b2b_enterprise` - B2B – Enterprise / Corporates
+        * `b2g` - B2G – Government / NGOs
+        * `students` - Students / Education Sector
+        * `healthcare` - Healthcare Professionals / Hospitals
+        * `freelancers` - Freelancers / Creators
+        * `developers` - Developers / Tech Teams
+        * `rural` - Rural / Underserved Communities
+        * `luxury` - Luxury / Premium Customers
+    UserProfile:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        username:
+          type: string
+          description: Required. 150 characters or fewer. Letters, digits and @/./+/-/_
+            only.
+          pattern: ^[\w.@+-]+$
+          maxLength: 150
+        email:
+          type: string
+          format: email
+          maxLength: 254
+        full_name:
+          type: string
+          maxLength: 100
+        profile_picture:
+          type: string
+          format: uri
+          nullable: true
+          maxLength: 200
+        business_stage:
+          $ref: '#/components/schemas/BusinessStageEnum'
+        industry:
+          type: string
+          nullable: true
+          maxLength: 100
+        target_market:
+          type: string
+          nullable: true
+          maxLength: 50
+        skills_background:
+          type: string
+          nullable: true
+        budget_range:
+          $ref: '#/components/schemas/UserProfileBudgetRangeEnum'
+        subscription_plan:
+          $ref: '#/components/schemas/SubscriptionPlanEnum'
+        api_tokens_used:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+        ideas_created:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+        messages_sent:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+        two_factor_enabled:
+          type: boolean
+        is_verified:
+          type: boolean
+      required:
+      - email
+      - id
+      - username
+    UserProfileBudgetRangeEnum:
+      enum:
+      - <1k
+      - 1k-10k
+      - 10k-50k
+      - '>50k'
+      type: string
+      description: |-
+        * `<1k` - < $1k
+        * `1k-10k` - $1k–10k
+        * `10k-50k` - $10k–50k
+        * `>50k` - > $50k
+  securitySchemes:
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: sessionid
+    jwtAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
