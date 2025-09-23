@@ -9,6 +9,8 @@ from django.contrib.auth import get_user_model
 
 from accounts.models import CustomUser
 
+from chatbots.montecarlo import start_simulation
+
 
 def generate_brief_ideacards(idea: Idea, ideacards_list: list[IdeaCard], user: CustomUser):
     
@@ -40,20 +42,32 @@ def generate_brief_ideacards(idea: Idea, ideacards_list: list[IdeaCard], user: C
 
 
 def generate_detailed_ideacard(ideacard: IdeaCard, user: CustomUser):
-    ideacard_serializer = IdeaCardSerializer(ideacard)
-    ai_params = ideacard_serializer.data
-    ai_params["business_plan"] = ideacard.idea.business_plan
-    ai_params["target_audience"] = ideacard.quick_stats.get("target_audience", "")
-    ai_params["budget_range"] = ideacard.idea.budget_range
-    ai_params["target_market"] = ideacard.idea.target_market
+    try:
 
-    ai_res = GeminiAPIManager.process_user_request(ai_params, agent_type=2)
+        ideacard_serializer = IdeaCardSerializer(ideacard)
+        ai_params = ideacard_serializer.data
+        ai_params["business_plan"] = ideacard.idea.business_plan
+        ai_params["target_audience"] = ideacard.quick_stats.get("target_audience", "")
+        ai_params["budget_range"] = ideacard.idea.budget_range
+        ai_params["target_market"] = ideacard.idea.target_market
 
-    ideacard_serializer = IdeaCardSerializer(ideacard, data=ai_res, partial=True)
-    ideacard_serializer.is_valid(raise_exception=True)
-    ideacard = ideacard_serializer.save()
-    ideacard.generation_status = "completed"
-    ideacard.save()
+        ai_res = GeminiAPIManager.process_user_request(ai_params, agent_type=2)
 
-    user.api_tokens_used += int(ai_res.get("total_used_tokens_for_gemini_api", 1))
-    user.save()
+
+        montecarlo = start_simulation(param_ranges=ai_res["data_for_montecarlo_simulation"])
+
+        ai_res["montecarlo_chart"] = montecarlo
+
+        ideacard_serializer = IdeaCardSerializer(ideacard, data=ai_res, partial=True)
+        ideacard_serializer.is_valid(raise_exception=True)
+        ideacard = ideacard_serializer.save()
+        ideacard.generation_status = "completed"
+        ideacard.save()
+
+        user.api_tokens_used += int(ai_res.get("total_used_tokens_for_gemini_api", 1))
+        user.save()
+
+    except Exception as e:
+        print(f"Exception occurred in generate_detailed_ideacard: {e}")
+        ideacard.generation_status = "failed"
+        ideacard.save()

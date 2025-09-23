@@ -206,7 +206,7 @@ def get_prompts( user_input,agent_type = 1,has_pdf = False):
                 Model Archetype: {user_input['model_archetype']}
 
             Task:
-            Based on the provided startup idea and details, generate a comprehensive business model, roadmap, market & competitor analysis, and charts in **Chart.js-ready format**.
+            Based on the provided startup idea and details, generate a comprehensive business model, roadmap, market & competitor analysis, and chart in **Chart.js-ready format**.
 
             Output **strictly valid JSON only** (no markdown, no commentary, no explanations).
 
@@ -225,7 +225,7 @@ def get_prompts( user_input,agent_type = 1,has_pdf = False):
                     {{"phase": "Q3 2025", "milestone": "milestone text"}},
                     {{"phase": "Q4 2025", "milestone": "milestone text"}}
                 ],
-                "charts": {{
+                "chart": {{
                     "user_growth": {{  
                         "type": "line",
                         "data": {{
@@ -297,16 +297,16 @@ def get_prompts( user_input,agent_type = 1,has_pdf = False):
                 ],
                 "data_for_montecarlo_simulation": {{
                     "production_cost": {{
-                    "min": "(number)",
-                    "max": "(number)"
+                    "min": "(number)", It will be per unit cost
+                    "max": "(number)"  It will be per unit cost
                     }},
                     "selling_price": {{
-                    "min": "(number)",
-                    "max": "(number)"
+                    "min": "(number)", It will be per unit price
+                    "max": "(number)"  It will be per unit price
                     }},
                     "demand": {{
-                    "min": "(number)",
-                    "max": "(number)"
+                    "min": "(number)", It will be demand of total units in six months
+                    "max": "(number)"  It will be demand of total units in six months
                     }}
                 }},
                 "total_used_tokens_for_gemini_api": "(number)"
@@ -315,7 +315,7 @@ def get_prompts( user_input,agent_type = 1,has_pdf = False):
             Rules:
             - Fill all fields with realistic values based on the startup idea.
             - Keep the chart structure exactly as given.
-            - All numeric fields in charts must be numbers (no quotes).
+            - All numeric fields in chart must be numbers (no quotes).
             - Do not include any extra text, commentary, or markdown.
             """
     elif agent_type == 3:

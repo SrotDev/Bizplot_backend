@@ -136,6 +136,7 @@ class IdeaCard(models.Model):
     chart = models.JSONField(default=dict, blank=True)  # e.g., {"type": "bar", "data": {...}, "layout": {...}}
 
     data_for_montecarlo_simulation = models.JSONField(default=dict, blank=True)  # e.g., {"assumptions": {...}, "results": {...}}
+    montecarlo_chart = models.JSONField(default=dict, blank=True)
 
     # Meta flags
     premium_locked = models.BooleanField(default=False)

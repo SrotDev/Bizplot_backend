@@ -100,12 +100,16 @@ chart_data = monte_carlo_simulation(
 
 
 def start_simulation(param_ranges=None):
+
+    # print("Enter")
     new_param_ranges = {}
 
-    new_param_ranges["cost"] = (param_ranges.get("production_cost").get("min"), param_ranges.get("production_cost").get("max")) 
-    new_param_ranges["price"] = (param_ranges.get("selling_price").get("min"), param_ranges.get("selling_price").get("max"))
-    new_param_ranges["demand"] = (param_ranges.get("demand").get("min"), param_ranges.get("demand").get("max"))
+    new_param_ranges["cost"] = (int(param_ranges.get("production_cost").get("min")), int(param_ranges.get("production_cost").get("max"))) 
+    new_param_ranges["price"] = (int(param_ranges.get("selling_price").get("min")), int(param_ranges.get("selling_price").get("max")))
+    new_param_ranges["demand"] = (int(param_ranges.get("demand").get("min")), int(param_ranges.get("demand").get("max")))
 
+    # print("End")
+    # print(new_param_ranges)
 
     chart_data = monte_carlo_simulation(
         sim_func=profit_sim,
