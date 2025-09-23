@@ -56,6 +56,8 @@ INSTALLED_APPS = [
 
     #Local apps
     'accounts.apps.AccountsConfig',
+    'chatbots.apps.ChatbotsConfig',
+    'ideas.apps.IdeasConfig',
 
 ]
 
@@ -167,3 +169,29 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 AUTH_USER_MODEL = "accounts.CustomUser"
+
+
+
+
+#subscription plans and their limits
+
+SUBSCRIPTION_PLANS = {
+    "free": {
+        "max_tokens": 10000,
+        "max_ideas": 3,
+        "max_cards": 5,
+        "price": 0
+    },
+    "pro": {
+        "max_tokens": 100000,
+        "max_ideas": 50,
+        "max_cards": 200,
+        "price": 29.99
+    },
+    "enterprise": {
+        "max_tokens": 1000000,
+        "max_ideas": 500,
+        "max_cards": 2000,
+        "price": 199.99
+    }
+}

@@ -1,6 +1,6 @@
 from rest_framework import generics, status
 from rest_framework.response import Response
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import *
 from .serializers import *
 from django.contrib.auth import get_user_model
 
@@ -26,9 +26,10 @@ class LoginView(generics.GenericAPIView):
         return Response(serializer.validated_data, status=status.HTTP_200_OK)
 
 
-class UserDetailView(generics.RetrieveAPIView):
+class UserInfoView(generics.RetrieveAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
+    permission_classes = [IsAuthenticated]
 
     def get_object(self):
         return self.request.user
@@ -38,6 +39,7 @@ class UserDetailView(generics.RetrieveAPIView):
 class UserProfileView(generics.RetrieveAPIView):
     queryset = User.objects.all()
     serializer_class = UserProfileSerializer
+    permission_classes = [IsAuthenticated]
 
     def get_object(self):
         return self.request.user
