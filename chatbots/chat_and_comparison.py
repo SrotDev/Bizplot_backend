@@ -207,9 +207,11 @@ Instructions:
         {"Receiver": "user", "Message": answer}
     ]
 
+
     # Return as JSON
     print(json.dumps(updated_response, indent=2))
-    return json.dumps(updated_response, indent=2)
+    return updated_response
+    # return json.dumps(updated_response, indent=2)
 
 #chat_bot(dummy_chatbot_data)
 

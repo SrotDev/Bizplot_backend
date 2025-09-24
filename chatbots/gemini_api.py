@@ -295,6 +295,35 @@ def get_prompts( user_input,agent_type = 1,has_pdf = False):
                         "weaknesses": ["key weaknesses"]
                     }}
                 ],
+                "product_service": {{
+                    "products": ["list products/services"],
+                    "features": ["list key features"],
+                    "unique_value_proposition": "concise UVP statement"
+                }},
+                "go_to_market": {{
+                    "channels": ["list distribution channels"],
+                    "strategies": ["list marketing/sales strategies"],
+                    "launch_plan": "brief launch plan description"
+                }},
+                "traction": {{
+                    "key_metrics": ["list measurable metrics"],
+                    "milestones": ["list achieved milestones"]
+                }},
+                "financial_projection": {{
+                    "revenue_forecast": [0, 0, 0, 0],
+                    "expenses_forecast": [0, 0, 0, 0],
+                    "profit_forecast": [0, 0, 0, 0]
+                }},
+                "risks_opportunities": {{
+                    "risks": ["list potential risks"],
+                    "opportunities": ["list potential opportunities"]
+                }},
+                "ask_funding": {{
+                    "amount": 0,
+                    "use_of_funds": ["list of fund allocations"]
+                }},
+
+
                 "data_for_montecarlo_simulation": {{
                     "production_cost": {{
                     "min": "(number)", It will be per unit cost
