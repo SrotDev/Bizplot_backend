@@ -9,14 +9,14 @@ class RegisterSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ["id", "username", "email", "password","name"]
+        fields = ["id", "username", "email", "password","full_name"]
 
     def create(self, validated_data):
         user = User.objects.create_user(
             username=validated_data["username"],
             email=validated_data["email"],
             password=validated_data["password"],
-            name=validated_data["name"] if "name" in validated_data else ""
+            full_name=validated_data["full_name"] if "full_name" in validated_data else ""
         )
         return user
 
