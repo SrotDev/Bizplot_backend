@@ -214,6 +214,18 @@ AUTH_USER_MODEL = "accounts.CustomUser"
 
 
 
+# CORS_ALLOW_ALL_ORIGINS = False  # safer than True, unless in dev
+# CORS_ALLOWED_ORIGINS = [
+#     "http://localhost:3000",  # React dev server
+#     "http://127.0.0.1:3000",  # sometimes needed
+#     "https://yourfrontenddomain.com",  # production frontend
+# ]
+CORS_ALLOW_ALL_ORIGINS = True
+
+# If you need cookies/session auth:
+CORS_ALLOW_CREDENTIALS = True
+
+
 
 #subscription plans and their limits
 
@@ -237,3 +249,4 @@ SUBSCRIPTION_PLANS = {
         "price": 199.99
     }
 }
+
