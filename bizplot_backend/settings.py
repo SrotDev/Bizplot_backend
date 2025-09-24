@@ -11,7 +11,10 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
+import dj_database_url
 
+import os
+from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,11 +24,18 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-9%1c*_f)$ngt!!86p$h!9dz%ky5+r$dp5(6!ur+c_6d0(0dpo2'
+
+load_dotenv()  # take environment variables from .env
+
+
+# os.environ['DJANGO_SECRET_KEY'] = 'django-insecure-9%1c*_f)$ngt!!86p$h!9dz%ky5+r$dp5(6!ur+c_6d0(0dpo2'
+SECRET_KEY = os.environ['DJANGO_SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# os.environ['DJANGO_DEBUG'] = 'True'
+DEBUG = os.environ['DJANGO_DEBUG'] == 'True'
 
+# ALLOWED_HOSTS = [host.strip() for host in os.environ.get('DJANGO_ALLOWED_HOSTS', '*').split(',')]
 ALLOWED_HOSTS = []
 
 
@@ -45,6 +55,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     "rest_framework_simplejwt.token_blacklist",  # for logout/refresh
     'drf_spectacular',
+    'corsheaders',
     
     # "dj_rest_auth",                        # REST auth helpers
     # "dj_rest_auth.registration",           # registration endpoints (optional)
@@ -95,9 +106,14 @@ SPECTACULAR_SETTINGS = {
 
 
 MIDDLEWARE = [
+    #did
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
+    #endid
+
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -135,6 +151,8 @@ DATABASES = {
 }
 
 
+# DATABASES['default'] = dj_database_url.parse(os.environ.get('DATABASE_URL'))
+
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
 
@@ -170,6 +188,15 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = 'static/'
+
+
+#did
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+# Optional but recommended for production
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+#endid
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
