@@ -17,6 +17,7 @@ import threading
 
 class IdeaListView(APIView):
     permission_classes = [IsAuthenticated]
+    
 
     def get(self, request, *args, **kwargs):
         ideas = Idea.objects.filter(user=request.user)
@@ -27,9 +28,13 @@ class IdeaListView(APIView):
 
 
 class IdeaViewSet(viewsets.ModelViewSet):
-    queryset = Idea.objects.all()
+    # queryset = Idea.objects.filter(user=request.user)
     serializer_class = IdeaSerializer
     permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        # Only return ideas belonging to the logged-in user
+        return Idea.objects.filter(user=self.request.user)
 
     def perform_create(self, serializer):
         idea = serializer.save(user=self.request.user)
